@@ -12,8 +12,8 @@ DB.create_table! :parks do
   String :date
   String :location
   String :visitors
-  Integer :lat
-  Integer :long
+  Float :lat
+  Float :long
 end
 DB.create_table! :reviews do
   primary_key :id

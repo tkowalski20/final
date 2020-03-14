@@ -37,8 +37,6 @@ get "/parks/:id" do
     @users_table = users_table
     @lat = @park[:lat]
     @long = @park[:long]
-    puts @lat
-    puts @long
     view "park"
 end
 
