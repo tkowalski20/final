@@ -1,44 +1,44 @@
 <div class="row">
     <div class="col-sm-9">
         <h2>
-            <i class="far fa-calendar-alt"></i>
+            <i class="fas fa-mountain"></i>
             <%= @park[:date] %>
         </h2>
         <h1><%= @park[:title] %></h1>
         <p><%= @park[:description] %></p>
-        <% for rsvp in @rsvps %>
+        <% for review in @reviews %>
             <div class="media">
-                <% if rsvp[:going] %>
+                <% if review[:going] %>
                     <i class="fas fa-thumbs-up fa-3x mr-3"></i>
                 <% else %>
                     <i class="fas fa-thumbs-down fa-3x mr-3"></i>
                 <% end %>
                 <div class="media-body">
-                    <h5 class="mt-0"><%= @users_table.where(id: rsvp[:user_id]).to_a[0][:name] %></h5>
-                    <%= rsvp[:comments] %>
+                    <h5 class="mt-0"><%= @users_table.where(id: review[:user_id]).to_a[0][:name] %></h5>
+                    <%= review[:comments] %>
                 </div>
             </div>
         <% end %>
         <p class="mt-5">
             <% if @current_user %>
-                <a href="/parks/<%= @park[:id] %>/rsvps/new" class="btn btn-primary">RSVP now!</a>
+                <a href="/parks/<%= @park[:id] %>/reviews/new" class="btn btn-primary">Review now!</a>
             <% else %>
-                <a href="/logins/new" class="btn btn-danger">Please sign in to RSVP</a>
+                <a href="/logins/new" class="btn btn-danger">Please sign in to Review</a>
             <% end %>
         </p>
     </div>
     <div class="col-sm-3">
-        <h3>When?</h3>
+        <h3>Operating Hours</h3>
         <p><%= @park[:date] %></p>
-        <h3>Where?</h3>
+        <h3>State</h3>
         <p><%= @park[:location] %></p>
-        <h3>How many guests so far?</h3>
-        <p><%= @going_count %></p>
+        <h3>Yearly Visitors</h3>
+        <p><%= @park[:visitors] %></p>
     </div>
 
     
-    <div class="container mt-5">
-      <h1>Where 2?</h1>
+    <div class="col-sm-3">
+      <h3>Location</h3>
       <iframe
         width="600"
         height="450"

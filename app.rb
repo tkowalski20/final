@@ -17,7 +17,7 @@ after { puts; }                                                                 
 #######################################################################################
 
 parks_table = DB.from(:parks)
-rsvps_table = DB.from(:rsvps)
+reviews_table = DB.from(:reviews)
 users_table = DB.from(:users)
 
 before do
@@ -32,27 +32,29 @@ end
 
 get "/parks/:id" do
     @park = parks_table.where(id: params[:id]).to_a[0]
-    @rsvps = rsvps_table.where(event_id: @park[:id])
-    @going_count = rsvps_table.where(event_id: @park[:id], going: true).count
+    @reviews = reviews_table.where(park_id: @park[:id])
+    @going_count = reviews_table.where(park_id: @park[:id], going: true).count
     @users_table = users_table
-    @lat = 37.8651
-    @long = -119.596848
+    @lat = @park[:lat]
+    @long = @park[:long]
+    puts @lat
+    puts @long
     view "park"
 end
 
-get "/parks/:id/rsvps/new" do
+get "/parks/:id/reviews/new" do
     @park = parks_table.where(id: params[:id]).to_a[0]
-    view "new_rsvp"
+    view "new_review"
 end
 
-get "/parks/:id/rsvps/create" do
+get "/parks/:id/reviews/create" do
     puts params
     @park = parks_table.where(id: params["id"]).to_a[0]
-    rsvps_table.insert(event_id: params["id"],
+    reviews_table.insert(park_id: params["id"],
                        user_id: session["user_id"],
                        going: params["going"],
                        comments: params["comments"])
-    view "create_rsvp"
+    view "create_review"
 end
 
 get "/users/new" do
