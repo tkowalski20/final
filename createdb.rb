@@ -19,7 +19,7 @@ DB.create_table! :reviews do
   primary_key :id
   foreign_key :park_id
   foreign_key :user_id
-  Boolean :going
+  Float :rating
   String :comments, text: true
 end
 DB.create_table! :users do

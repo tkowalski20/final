@@ -33,7 +33,13 @@ end
 get "/parks/:id" do
     @park = parks_table.where(id: params[:id]).to_a[0]
     @reviews = reviews_table.where(park_id: @park[:id])
-    @going_count = reviews_table.where(park_id: @park[:id], going: true).count
+    @sum_rating = reviews_table.where(park_id: @park[:id]).sum(:rating)
+    @count_rating = reviews_table.where(park_id: @park[:id]).count(:rating)
+    if @count_rating > 0
+        @avg_rating = 1.0*@sum_rating/@count_rating
+    else
+        @avg_rating = 0.0
+    end
     @users_table = users_table
     @lat = @park[:lat]
     @long = @park[:long]
@@ -50,7 +56,7 @@ get "/parks/:id/reviews/create" do
     @park = parks_table.where(id: params["id"]).to_a[0]
     reviews_table.insert(park_id: params["id"],
                        user_id: session["user_id"],
-                       going: params["going"],
+                       rating: params["rating"],
                        comments: params["comments"])
     view "create_review"
 end

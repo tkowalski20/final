@@ -1,20 +1,23 @@
 <h2>
-    <i class="far fa-calendar-alt"></i>
-    <%= @park[:date] %>
+    <i class="fas fa-pen mr-3"></i>
+    Write your Review
 </h2>
 <h1>Review for <%= @park[:title] %></h1>
 
 <form action="/parks/<%= @park[:id] %>/reviews/create">
   <div class="form-group">
-    <label>Are you going?</label>
-    <select class="form-control" name="going">
-      <option value="1">Yes</option>
-      <option value="0">No</option>
+    <label>On a scale from 1 (hated it) to 5 (loved it), how would you rate this park?</label>
+    <select class="form-control" name="rating">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
     </select>
   </div>
   <div class="form-group">
-    <label>Comments</label>
-    <textarea class="form-control" rows="3" name="comments"></textarea>
+    <label>Review</label>
+    <textarea class="form-control" rows="3" name="review"></textarea>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
