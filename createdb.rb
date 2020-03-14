@@ -5,7 +5,7 @@ DB = Sequel.connect(connection_string)                                          
 #######################################################################################
 
 # Database schema - this should reflect your domain model
-DB.create_table! :events do
+DB.create_table! :parks do
   primary_key :id
   String :title
   String :description, text: true
@@ -27,19 +27,19 @@ DB.create_table! :users do
 end
 
 # Insert initial (seed) data
-events_table = DB.from(:events)
+parks_table = DB.from(:parks)
 
-events_table.insert(title: "Yosemite National Park", 
+parks_table.insert(title: "Yosemite National Park", 
                     description: "Here we go again bacon burger taco fans, another Bacon Burger Taco Fest is here!",
                     date: "June 21",
                     location: "Kellogg Global Hub")
 
-events_table.insert(title: "Rocky Mountain National Park", 
+parks_table.insert(title: "Rocky Mountain National Park", 
                     description: "If you're into nutrition and vitamins and stuff, this is the event for you.",
                     date: "July 4",
                     location: "Nowhere")
 
-events_table.insert(title: "Grand Canyon National Park", 
+parks_table.insert(title: "Grand Canyon National Park", 
                     description: "If you're into nutrition and vitamins and stuff, this is the event for you.",
                     date: "July 4",
                     location: "Nowhere")

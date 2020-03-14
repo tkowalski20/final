@@ -1,0 +1,5 @@
+<h1>Top National Parks</h1>
+
+<% for park in @parks %>
+    <p><a href="/parks/<%= park[:id] %>"><%= park[:title] %></a></p>
+<% end %>
