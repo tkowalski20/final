@@ -16,6 +16,12 @@ before { puts; puts "--------------- NEW REQUEST ---------------"; puts }       
 after { puts; }                                                                       #
 #######################################################################################
 
+account_sid = "AC6a4000e269946672ea358b985eafdba6"
+auth_token = "5a5310220196adcbe3c66139daacafbd"
+
+client = Twilio::REST::Client.new(account_sid, auth_token)
+
+
 parks_table = DB.from(:parks)
 reviews_table = DB.from(:reviews)
 users_table = DB.from(:users)
@@ -62,6 +68,7 @@ get "/parks/:id/reviews/create" do
 end
 
 get "/users/new" do
+
     view "new_user"
 end
 
@@ -69,6 +76,14 @@ post "/users/create" do
     puts params
     hashed_password = BCrypt::Password.create(params["password"])
     users_table.insert(name: params["name"], email: params["email"], password: hashed_password)
+
+    # send the SMS from Twilio number to welcome the new user to the web app
+    client.messages.create(
+    from: "+14242275359", 
+    to: "+12156296472",
+    body: "Welcome to National Parks Reviews! Thanks for signing up!"
+    )
+
     view "create_user"
 end
 
