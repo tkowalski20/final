@@ -17,7 +17,7 @@ after { puts; }                                                                 
 #######################################################################################
 
 account_sid = "AC6a4000e269946672ea358b985eafdba6"
-auth_token = "5a5310220196adcbe3c66139daacafbd"
+auth_token = "59b0ee75aa43fa50ee89c24907164a0d"
 
 client = Twilio::REST::Client.new(account_sid, auth_token)
 
